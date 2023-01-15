@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "graceful-fs": "^4.2.10"
+  },
+  "dependencies": {
+    "create-react-app": "^5.0.1"
+  }
+}
