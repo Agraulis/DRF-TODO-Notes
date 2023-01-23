@@ -19,8 +19,8 @@ const ProjectNote = ({note}) => {
 
 const ProjectNotesList = ({notes}) => {
     let { project_name } = useParams()
-    let params = useParams()
-    let filtered_notes = notes.filter((note) => note.project.name == project_name)
+    let filtered_notes = notes.filter(note => note.project.name== project_name)
+    console.log(project_name)
     return (
         <table>
             <tr>

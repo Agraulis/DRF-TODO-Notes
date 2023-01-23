@@ -6,7 +6,7 @@ const ProjectItem = ({project}) => {
     return (
         <tr>
             <td>
-               <Link to={`projects/${project.name.replaceAll(" ", "_")}`}>{project.name}</Link>
+               <Link to={`projects/${project.name}`}>{project.name}</Link>
             </td>
             <td>
                 {project.link}
