@@ -3,6 +3,7 @@ from users.models import User
 
 
 class Project(models.Model):
+    id = models
     name = models.CharField(max_length=64)
     link = models.URLField()
     users = models.ManyToManyField(User)
