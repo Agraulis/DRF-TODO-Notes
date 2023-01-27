@@ -7,6 +7,7 @@ from .serializers import ProjectSerializer, ToDoNoteSerializer
 from .filters import ProjectFilter, ToDoNoteFilter
 
 import datetime
+from rest_framework import permissions
 
 
 class ProjectLimitOffsetPaginationViewSet(LimitOffsetPagination):
@@ -22,6 +23,7 @@ class ProjectModelViewSet(ModelViewSet):
     serializer_class = ProjectSerializer
     pagination_class = ProjectLimitOffsetPaginationViewSet
     filterset_class = ProjectFilter
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class ToDoNoteModelViewSet(ModelViewSet):
