@@ -1,13 +1,15 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Project, ToDoNote
-from .serializers import ProjectSerializer, ToDoNoteSerializer
+from .serializers import \
+    ProjectSerializer, ToDoNoteSerializer, ProjectSerializerBase, ToDoNoteSerializerBase
 from .filters import ProjectFilter, ToDoNoteFilter
 
+
 import datetime
-from rest_framework import permissions
 
 
 class ProjectLimitOffsetPaginationViewSet(LimitOffsetPagination):
@@ -23,7 +25,12 @@ class ProjectModelViewSet(ModelViewSet):
     serializer_class = ProjectSerializer
     pagination_class = ProjectLimitOffsetPaginationViewSet
     filterset_class = ProjectFilter
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return ProjectSerializer
+        return ProjectSerializerBase
 
 
 class ToDoNoteModelViewSet(ModelViewSet):
@@ -42,3 +49,8 @@ class ToDoNoteModelViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data)
+
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return ToDoNoteSerializer
+        return ToDoNoteSerializerBase
