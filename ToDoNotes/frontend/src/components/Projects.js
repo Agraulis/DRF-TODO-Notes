@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import Select from 'react-select'
 
 
 const ProjectItem = ({project}) => {
@@ -12,7 +13,7 @@ const ProjectItem = ({project}) => {
                 {project.link}
             </td>
             <td>
-                {project.users}
+                {project.users.toString()}
             </td>
         </tr>
     )
@@ -20,18 +21,28 @@ const ProjectItem = ({project}) => {
 
 const ProjectList = ({projects}) => {
     return (
-        <table>
-            <th>
-                Project name
-            </th>
-            <th>
-                Project link
-            </th>
-            <th>
-                Project users
-            </th>
-            {projects.map((project) => <ProjectItem project={project} />)}
-        </table>
+        <div>
+            <Select
+                placeholder = 'Find a project'
+                options={projects.map((item) => ({
+                    ['label']: <Link to={`projects/${item.name}`}>{item.name}</Link>,
+                    ['value']: item.name
+                }))}
+            />
+            <table>
+                <th>
+                    Project name
+                </th>
+                <th>
+                    Project link
+                </th>
+                <th>
+                    Project users
+                </th>
+                {projects.map((project) => <ProjectItem project={project} />)}
+            </table>
+            <Link to='/projects/create'>Create</Link>
+        </div>
     )
 }
 
