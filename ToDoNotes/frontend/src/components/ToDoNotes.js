@@ -1,9 +1,12 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
-
-const ToDoNotesItem = ({note}) => {
+const ToDoNotesItem = ({note, deleteToDoNote}) => {
     return (
         <tr>
+            <td>
+                {note.url}
+            </td>
             <td>
                 {note.text}
             </td>
@@ -16,13 +19,20 @@ const ToDoNotesItem = ({note}) => {
             <td>
                 {note.createdBy.username}
             </td>
+            <td>
+                <button onClick={()=>deleteToDoNote(note.url)} type='button'>Delete</button>
+            </td>
         </tr>
     )
 }
 
-const ToDoNotesList = ({notes}) => {
+const ToDoNotesList = ({notes, deleteToDoNote}) => {
     return (
+    <div>
         <table>
+            <th>
+                Note url
+            </th>
             <th>
                 Note text
             </th>
@@ -35,8 +45,13 @@ const ToDoNotesList = ({notes}) => {
             <th>
                 Created by
             </th>
-            {notes.map((note) => <ToDoNotesItem note={note} />)}
+            <th>
+
+            </th>
+            {notes.map((note) => <ToDoNotesItem note={note} deleteToDoNote={deleteToDoNote} />)}
         </table>
+        <Link to='/todonotes/create'>Create</Link>
+    </div>
     )
 }
 
